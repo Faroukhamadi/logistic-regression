@@ -1,5 +1,6 @@
-
 import numpy as np
+
+import util
 from linear_model import LinearModel
 
 
@@ -33,6 +34,18 @@ class LogisticRegression(LinearModel):
             if np.linalg.norm(self.theta - old_theta, ord=1) < self.eps:
                 break
 
-    def predit(self, x: np.ndarray, y: np.ndarray) -> None:
-        # TODO: implement this next
-        pass
+    def predict(self, x: np.ndarray) -> list[int]:
+        """Make a prediction given new inputs x.
+
+        Args:
+            x: Inputs of shape (m,n).
+
+        Returns:
+            Outputs of shape (m,).
+        """
+        y_preds: list[int] = []
+        for elem in x[0]:
+            y = round(util.sigmoid(self.theta.dot(elem)))
+            y_preds.append(y)
+
+        return y_preds
